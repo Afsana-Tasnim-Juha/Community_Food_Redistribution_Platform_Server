@@ -34,6 +34,7 @@ async function run() {
 
         const featuredFoodCollection = client.db("harvestHub").collection("featuredFoods");
         const requestCollection = client.db("harvestHub").collection("request");
+        const foodCollection = client.db("harvestHub").collection("food");
 
 
 
@@ -61,6 +62,16 @@ async function run() {
             const requestOrder = req.body;
             console.log(requestOrder);
             const result = await requestCollection.insertOne(requestOrder);
+            res.send(result);
+
+        })
+
+
+        //send new food data to the server
+        app.post('/food', async (req, res) => {
+            const newFood = req.body;
+            console.log(newFood);
+            const result = await foodCollection.insertOne(newFood);
             res.send(result);
 
         })
