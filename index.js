@@ -33,7 +33,7 @@ async function run() {
 
 
         const featuredFoodCollection = client.db("harvestHub").collection("featuredFoods");
-        const requestCollection = client.db("harvestHub").collection("request");
+        //const requestCollection = client.db("harvestHub").collection("request");
         const foodCollection = client.db("harvestHub").collection("food");
 
 
@@ -58,7 +58,7 @@ async function run() {
         })
 
         //request related API
-        app.post('/request', async (req, res) => {
+        app.post('/featuredFoods', async (req, res) => {
             const requestOrder = req.body;
             console.log(requestOrder);
             const result = await requestCollection.insertOne(requestOrder);
@@ -67,6 +67,8 @@ async function run() {
         })
 
 
+
+        //food related 
         //send new food data to the server
         app.post('/food', async (req, res) => {
             const newFood = req.body;
@@ -76,6 +78,20 @@ async function run() {
 
         })
 
+        app.get('/food', async (req, res) => {
+
+            const cursor = foodCollection.find();
+            const result = await cursor.toArray();
+            res.send(result);
+        })
+
+        //read data from the mongodb
+
+        app.get('/food', async (req, res) => {
+            const cursor = foodCollection.find();
+            const result = await cursor.toArray();
+            res.send(result);
+        })
 
 
         // Send a ping to confirm a successful connection
